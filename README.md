@@ -1,59 +1,35 @@
-# Welcome to Remix!
+# Remix Bit.dev Clone
 
-- [Remix Docs](https://remix.run/docs)
+This is a clone of [bit.dev](https://bit.dev) that was build using [Remix.run](https://remix.run) framework
 
-## Development
+This demo not 100% functional beacuse i don't know the underline tech bit.dev uses, im gussing it build on private npm repos.
 
-You'll need to run two terminals (or bring in a process manager like concurrently/pm2-dev if you like):
+so some things are working some aren't.
 
-Start the Remix development asset server
+## The TechStack
+Remix as framework
 
-```sh
-npm run dev
-```
+Prisma as ORM 
 
-In a new tab start your express app:
+Postgres as database
 
-```sh
-npm run start:dev
-```
+Express as backend server
 
-This starts your app in development mode, which will purge the server require cache when Remix rebuilds assets so you don't need a process manager restarting the express server.
+Tailwindcss as css framework
 
-## Deployment
 
-First, build your app for production:
+## Pages
 
-```sh
-npm run build
-```
+| Login - 80% finish 
 
-Then run the app in production mode:
 
-```sh
-npm start
-```
+| ---- login using github - 100%
 
-Now you'll need to pick a host to deploy it to.
+| ---- login using google - 80%
 
-### DIY
+| ---- login using local form - 20%
 
-If you're familiar with deploying express applications you should be right at home just make sure to deploy the output of `remix build`
 
-- `server/build/`
-- `public/build/`
+| Create-Scope - 100%
 
-### Using a Template
-
-When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
-
-```sh
-cd ..
-# create a new project, and pick a pre-configured host
-npx create-remix@latest
-cd my-new-remix-app
-# remove the new project's app (not the old one!)
-rm -rf app
-# copy your app over
-cp -R ../my-old-remix-app/app app
-```
+| User main page - 80% 
