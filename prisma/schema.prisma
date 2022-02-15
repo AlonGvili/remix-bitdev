@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  password      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  profile       Profile?
+  followers     User[]   @relation("UserToUser")
+  following     User[]   @relation("UserToUser")
+  scopes        Scope[]
+  contributions Scope[] @relation("UserToScope")
+}
+
+model Profile {
+  id        String   @id @default(cuid())
+  name      String
+  company   String?
+  bio       String?
+  homepage  String?
+  location  String?
+  avatar    String?
+  displayName String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+}
+
+model Scope {
+  id            String     @id @default(cuid())
+  name          String
+  packages      Package[]
+  visibility    Visibility @default(PUBLIC)
+  owner         User?      @relation(fields: [userId], references: [id])
+  userId        String?
+  collaborators User[]     @relation("UserToScope")
+}
+
+model Component {
+  id           String      @id @default(cuid())
+  name         String
+  description  String?
+  code         String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  tags         Tag[]
+  tests        Test[]
+  package      Package?    @relation(fields: [packageId], references: [id])
+  versions     Version[]
+  dependencies Component[] @relation("ComponentToComponent")
+  visibility   Visibility  @default(PUBLIC)
+  framework    Framework   @default(NONE)
+  component    Component?  @relation("ComponentToComponent", fields: [componentId], references: [id])
+  packageId    String?
+  componentId  String?
+  downloads    Int         @default(0)
+}
+
+model Package {
+  id         String      @id @default(cuid())
+  name       String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  Scope      Scope?      @relation(fields: [scopeId], references: [id])
+  scopeId    String?
+  components Component[]
+  tags       Tag[]
+  versions   Version[]
+  visibility Visibility  @default(PUBLIC)
+  downloads  Int         @default(0)
+}
+
+model Test {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  version     String?
+  passed      Boolean
+  message     String?
+  duration    Int?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Component   Component @relation(fields: [componentId], references: [id])
+  componentId String
+}
+
+model Tag {
+  id          String     @id @default(cuid())
+  name        String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  Component   Component? @relation(fields: [componentId], references: [id])
+  componentId String?
+  Package     Package?   @relation(fields: [packageId], references: [id])
+  packageId   String?
+}
+
+model Version {
+  id          String     @id @default(cuid())
+  name        String?
+  description String?
+  number      String
+  createdAt   DateTime   @default(now())
+  Component   Component? @relation(fields: [componentId], references: [id])
+  componentId String?
+  Package     Package?   @relation(fields: [packageId], references: [id])
+  packageId   String?
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum Framework {
+  REACT
+  VUE
+  ANGULAR
+  NONE
+}
+
+enum Role {
+  OWNER
+  CONTRIBUTOR
+  VIEWER
+}
