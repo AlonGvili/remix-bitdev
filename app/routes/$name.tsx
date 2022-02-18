@@ -72,7 +72,7 @@ export default function ProfileView() {
 						<Link to="/edit">
 							<button className="py-1 px-4 border rounded-md">Edit</button>
 						</Link>
-						<Link to="settings" className="text-gray-600 font-semibold">
+						<Link to="/settings" className="text-gray-600 font-semibold">
 							<button className="py-1 px-4 border rounded-md text-center inline-flex justify-center items-center">
 								<RiSettings3Fill className="text-gray-500 mr-2" />
 								Settings

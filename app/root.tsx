@@ -18,9 +18,7 @@ export const meta: MetaFunction = () => {
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
-	let user = await authenticator.isAuthenticated(request, {
-		failureRedirect: "/login",
-	});
+	let user = await authenticator.isAuthenticated(request);
 	if (user && !(user instanceof Error)) {
 		let userData = await db?.user.findFirst({ where: { id: user?.id! },include:{
 			profile: true,
