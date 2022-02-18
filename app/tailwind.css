@@ -499,10 +499,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-column: 1 / -1;
 }
 
-.col-span-1 {
-  grid-column: span 1 / span 1;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -597,10 +593,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   aspect-ratio: 1 / 1;
 }
 
-.aspect-video {
-  aspect-ratio: 16 / 9;
-}
-
 .h-24 {
   height: 6rem;
 }
@@ -639,14 +631,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-10 {
   height: 2.5rem;
-}
-
-.h-48 {
-  height: 12rem;
-}
-
-.h-56 {
-  height: 14rem;
 }
 
 .h-44 {
@@ -705,10 +689,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 12rem;
 }
 
-.w-44 {
-  width: 11rem;
-}
-
 .min-w-full {
   min-width: 100%;
 }
@@ -743,16 +723,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 20rem;
 }
 
-.max-w-md {
-  max-width: 28rem;
-}
-
 .max-w-full {
   max-width: 100%;
-}
-
-.max-w-4xl {
-  max-width: 56rem;
 }
 
 .flex-1 {
@@ -782,14 +754,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.grid-cols-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
 .flex-col {
   flex-direction: column;
 }
@@ -814,10 +778,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: space-between;
 }
 
-.justify-around {
-  justify-content: space-around;
-}
-
 .justify-evenly {
   justify-content: space-evenly;
 }
@@ -832,10 +792,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .gap-4 {
   gap: 1rem;
-}
-
-.gap-2 {
-  gap: 0.5rem;
 }
 
 .space-y-12 > :not([hidden]) ~ :not([hidden]) {
@@ -902,12 +858,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-space-x-reverse: 0;
   margin-right: calc(3rem * var(--tw-space-x-reverse));
   margin-left: calc(3rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.divide-y-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-y-reverse: 0;
-  border-top-width: calc(2px * calc(1 - var(--tw-divide-y-reverse)));
-  border-bottom-width: calc(2px * var(--tw-divide-y-reverse));
 }
 
 .overflow-x-hidden {

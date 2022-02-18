@@ -1,10 +1,10 @@
 import React from "react";
 import { RadioGroup } from "@headlessui/react";
 import { RiCloseFill, RiTeamFill } from "react-icons/ri";
-import { ActionFunction, Form, json, Link, redirect, useActionData, useLocation } from "remix";
+import { ActionFunction, Form, Link, redirect, useActionData, useLocation } from "remix";
 import { authenticator } from "~/services/auth.server";
 import { db } from "~/services/db.server";
-import { Organization, Plan } from "@prisma/client";
+import { Plan } from "@prisma/client";
 
 export let action: ActionFunction = async ({ request }) => {
 	let loggedinUser = await authenticator.isAuthenticated(request, {
