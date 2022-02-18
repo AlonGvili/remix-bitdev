@@ -7,7 +7,6 @@ import { db } from "./db.server";
 import bcrypt from "bcryptjs";
 import { Prisma } from "@prisma/client";
 
-
 async function getUser({ email }: { email: string }) {
 	return await db.user.findFirst({
 		where: { email },
@@ -50,13 +49,16 @@ export async function loginGithub({
 				password: accessToken,
 				profile: {
 					create: {
+						provider: "github",
+						primaryEmail: `no-reply+${profile.emails[0].value.split("@")[0]}_github@bit.dev`,
 						name: profile._json.name,
 						displayName: profile.displayName,
 						bio: profile._json.bio,
 						company: profile._json.company,
 						location: profile._json.location,
 						homepage: profile._json.html_url,
-						avatar: profile._json.avatar_url
+						avatar: profile._json.avatar_url,
+						emails: profile._json.email,
 					}
 				}
 			}
@@ -86,7 +88,21 @@ export async function loginGoogle({
 		return await db.user.create({
 			data: {
 				email: profile.emails[0].value,
-				password: accessToken
+				password: accessToken,
+				profile: {
+					create: {
+						provider: "google",
+						primaryEmail: `no-reply+${profile._json.email.split("@")[0]}_google@bit.dev`,
+						name: profile._json.email.split("@")[0],
+						displayName: profile.displayName,
+						bio: "",
+						company: "",
+						location: "",
+						homepage: "",
+						avatar: profile._json.picture,
+						emails: profile._json.email
+					}
+				}
 			}
 		});
 	}

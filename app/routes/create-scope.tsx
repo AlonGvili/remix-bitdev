@@ -1,8 +1,7 @@
 import { RiCloseFill, RiCommunityFill, RiGitRepositoryFill, RiLock2Fill } from "react-icons/ri";
-import { Form, useMatches, useLocation, Link } from "remix";
+import { Form, useMatches, Link } from "remix";
 
 export default function CreateScopePage() {
-	let location = useLocation();
 	let data = useMatches()[0]?.data;
 	return (
 		<div className="w-screen h-screen z-50 absolute inset-0 bg-white">
@@ -106,7 +105,7 @@ export default function CreateScopePage() {
 							<h4 className="text-sm break-words max-w-lg pl-16">Control access to this scope. Limited to 1 scope.</h4>
 						</div>
 					</fieldset>
-					<button className="max-w-max py-3 bg-violet-500 rounded-md max-w-2xl px-6 text-white font-bold">Create</button>
+					<button className="py-3 bg-violet-400 hover:bg-violet-600 rounded-md max-w-2xl px-6 text-white font-bold">Create</button>
 				</Form>
 			</div>
 		</div>

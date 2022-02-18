@@ -11,31 +11,46 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(cuid())
-  email         String   @unique
-  password      String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  profile       Profile?
-  followers     User[]   @relation("UserToUser")
-  following     User[]   @relation("UserToUser")
-  scopes        Scope[]
-  contributions Scope[] @relation("UserToScope")
+  id                 String         @id @default(cuid())
+  email              String         @unique
+  password           String
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  profile            Profile?
+  followers          User[]         @relation("UserToUser")
+  following          User[]         @relation("UserToUser")
+  scopes             Scope[]
+  contributions      Scope[]        @relation("UserToScope")
+  organizationsAdmin Organization[] @relation("UserToOrganization")
+  organizations      Organization[] @relation("OrganizationToUser")
 }
 
 model Profile {
+  id           String   @id @default(cuid())
+  name         String
+  company      String?
+  emails       String[]
+  primaryEmail String?
+  provider     String?
+  bio          String?
+  homepage     String?
+  location     String?
+  avatar       String?
+  displayName  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String   @unique
+}
+
+model Organization {
   id        String   @id @default(cuid())
   name      String
-  company   String?
-  bio       String?
-  homepage  String?
-  location  String?
-  avatar    String?
-  displayName String?
+  plan      Plan     @default(COMMUNITY)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String   @unique
+  owner     User[]   @relation("UserToOrganization")
+  members   User[]   @relation("OrganizationToUser")
 }
 
 model Scope {
@@ -46,6 +61,7 @@ model Scope {
   owner         User?      @relation(fields: [userId], references: [id])
   userId        String?
   collaborators User[]     @relation("UserToScope")
+  tags          Tag[]
 }
 
 model Component {
@@ -105,6 +121,8 @@ model Tag {
   componentId String?
   Package     Package?   @relation(fields: [packageId], references: [id])
   packageId   String?
+  Scope       Scope?     @relation(fields: [scopeId], references: [id])
+  scopeId     String?
 }
 
 model Version {
@@ -122,6 +140,11 @@ model Version {
 enum Visibility {
   PUBLIC
   PRIVATE
+}
+
+enum Plan {
+  COMMUNITY
+  BUSINESS
 }
 
 enum Framework {
