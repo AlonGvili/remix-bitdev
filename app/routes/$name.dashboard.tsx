@@ -30,6 +30,8 @@ export let loader: LoaderFunction = async ({ request }) => {
 						}
 					}
 				},
+				organizationsAdmin: true,
+				organizations: true,
 				contributions: true,
 				followers: true,
 				following: true

@@ -11,6 +11,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 		let userData = await db?.user.findFirst({ where: { id: user?.id! },include:{
 			profile: true,
 			scopes: true,
+			organizationsAdmin: true,
 			contributions: true,
 			followers: true,
 			following: true,

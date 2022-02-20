@@ -1,6 +1,6 @@
 import { Disclosure } from "@headlessui/react";
 import { RiArrowDownSFill } from "react-icons/ri";
-import { Link, LoaderFunction, useLoaderData } from "remix";
+import { Link, Links, LoaderFunction, useLoaderData } from "remix";
 import { authenticator } from "~/services/auth.server";
 
 export let loader: LoaderFunction = async ({ request }) => {
@@ -31,7 +31,9 @@ export default function UserBillingPage() {
 			</div>
 			<div className="max-w-2xl border border-gray-300 p-2 rounded-md flex items-center justify-between">
 				<h1 className="text-base pl-4 font-bold text-gray-600">Go Pro to collaborate on private code</h1>
-				<button className="py-2 px-6 max-w-max w-full bg-violet-500 hover:bg-violet-600 text-white font-bold rounded-md">Upgrade</button>
+				<Link to="/upgrade">
+					<button className="py-2 px-6 max-w-max w-full bg-violet-500 hover:bg-violet-600 text-white font-bold rounded-md">Upgrade</button>
+				</Link>
 			</div>
 			<div className="max-w-full">
 				<div className="flex flex-col space-y-6 items-start max-w-2xl">

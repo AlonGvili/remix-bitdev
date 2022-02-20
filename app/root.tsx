@@ -24,6 +24,8 @@ export let loader: LoaderFunction = async ({ request }) => {
 			profile: true,
 			scopes: true,
 			contributions: true,
+			organizationsAdmin: true,
+			organizations: true,
 			followers: true,
 			following: true,
 		} });

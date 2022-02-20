@@ -2,9 +2,11 @@
 
 This is a clone of [bit.dev](https://bit.dev) that was build using [Remix.run](https://remix.run) framework
 
-This demo not 100% functional beacuse i don't know the underline tech bit.dev uses, im gussing it build on private npm repos.
+This demo not 100% functional beacuse i don't know the underline tech bit.dev uses.
 
 so some things are working some aren't.
+
+also this clone is only for the Front UI so no backend stuff, well just simple things I didn't want this clone to be complex, maybe i will implement all the Remix actions and loaders for the routes but for now most of the routes have loaders and not actions.
 
 ## The TechStack
 Remix as framework
@@ -17,19 +19,3 @@ Express as backend server
 
 Tailwindcss as css framework
 
-
-## Pages
-
-| Login - 80% finish 
-
-
-| ---- login using github - 100%
-
-| ---- login using google - 80%
-
-| ---- login using local form - 20%
-
-
-| Create-Scope - 100%
-
-| User main page - 80% 

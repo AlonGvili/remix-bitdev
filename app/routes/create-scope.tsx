@@ -1,14 +1,18 @@
+import { RadioGroup } from "@headlessui/react";
+import React from "react";
 import { RiCloseFill, RiCommunityFill, RiGitRepositoryFill, RiLock2Fill } from "react-icons/ri";
 import { Form, useMatches, Link } from "remix";
+import RadioCard from "~/componetns/misc/radio_card";
 
 export default function CreateScopePage() {
 	let data = useMatches()[0]?.data;
+	let [plan, setPlan] = React.useState("team");
 	return (
 		<div className="w-screen h-screen z-50 absolute inset-0 bg-white">
 			<div className="fixed w-full inset-0 flex justify-between items-center h-20 p-8">
 				<Link to="/">
-                    <img className="w-12 h-12 object-cover" src="https://static.bit.dev/bit-logo.svg" />
-                </Link>
+					<img className="w-12 h-12 object-cover" src="https://static.bit.dev/bit-logo.svg" />
+				</Link>
 				<Link to="..">
 					<RiCloseFill className="w-8 h-8 text-gray-400" />
 				</Link>
@@ -18,35 +22,19 @@ export default function CreateScopePage() {
 				<h3 className="font-semibold text-lg">Choose “Team” to manage members and integrate with GitHub and Slack.</h3>
 				<Form className="space-y-6 accent-violet-500">
 					<fieldset className="flex space-x-8 max-w-xl w-full">
-						<div className="flex flex-col space-y-2">
-							<p className="text-xs font-bold text-gray-400">Team</p>
-							<button
-								type="button"
-								name="scope_type"
-								value="org"
-								className="py-4 px-8 border border-gray-300 w-60 rounded-md flex justify-start space-x-4 items-center"
-							>
-								<div className="rounded-full flex items-center justify-center border-2 p-2 w-12 h-12">
-									<RiCommunityFill className="text-gray-300" />
+						<RadioGroup value={plan} onChange={setPlan} className="grid grid-cols-2 gap-6 w-full">
+							<RadioCard className="max-h-max flex space-x-4 p-4 items-center" value="team">
+								<div className="rounded-full flex items-center justify-center border-2 p-2 w-12 h-12 bg-violet-600">
+									<RiCommunityFill className="text-white" />
 								</div>
 								<span className="text-sm uppercase font-bold">team</span>
-							</button>
-						</div>
-						<p className="flex justify-center items-center text-lg font-bold">
-							<span className="mt-4">OR</span>
-						</p>
-						<div className="flex flex-col space-y-2">
-							<p className="text-xs font-bold text-gray-400">Personal</p>
-							<button
-								type="button"
-								name="scope_type"
-								value="personal"
-								className="py-4 px-8 border border-gray-300 w-60 rounded-md flex justify-start space-x-4 items-center"
-							>
+							</RadioCard>
+
+							<RadioCard className="flex space-x-4 p-4 items-center" value="personal">
 								<img src={data?.profile?.avatar} className="object-scale-down rounded-full w-12 h-12" />
 								<span className="text-sm uppercase font-bold">personal</span>
-							</button>
-						</div>
+							</RadioCard>
+						</RadioGroup>
 					</fieldset>
 					<input
 						className="w-full accent-violet-400 appearance-none py-3 bg-gray-200 rounded-md max-w-xl px-6 placeholder:text-gray-400 placeholder:font-bold"
