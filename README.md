@@ -19,3 +19,4 @@ Express as backend server
 
 Tailwindcss as css framework
 
+### This is still work in progress, so don't panic if something breaks...
