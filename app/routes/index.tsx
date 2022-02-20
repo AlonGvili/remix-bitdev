@@ -15,7 +15,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 			followers: true,
 			following: true,
 		} });
-		return userData && redirect(`/${userData.profile?.displayName}`); // redirect to user's profile
+		return userData && redirect(`/${userData.profile?.displayName}/dashboard`); // redirect to user's profile
 	}
 	return null
 };

@@ -1,4 +1,4 @@
-import { RiFoldersLine, RiFunctionLine } from "react-icons/ri";
+import { RiDashboardLine, RiFoldersLine, RiFunctionLine } from "react-icons/ri";
 import { Link, NavLink } from "remix";
 
 export default function SideBar() {
@@ -10,7 +10,7 @@ export default function SideBar() {
 				</Link>
 				<li>
 					<NavLink to="/components" className={({ isActive }) => (isActive ? "text-violet-500" : "text-gray-200")}>
-						<RiFunctionLine className="w-6 h-6" />
+						<RiDashboardLine className="w-6 h-6" />
 					</NavLink>
 				</li>
 				<li>

@@ -85,30 +85,18 @@ export default function ProfileView() {
 				<div className="w-full">
 					<Tab.Group>
 						<Tab.List className="space-x-2 pb-2 border-b border-gray-200">
-							<Tab>
-								<NavLink
-									to="."
-									prefetch="intent"
-									className={({ isActive }) =>
-										isActive && !location.pathname.includes("scopes") ? "text-violet-500 font-bold" : ""
-									}
-								>
-									Components
-								</NavLink>
-							</Tab>
-							<Tab>
-								<NavLink to="scopes" prefetch="intent" className={({ isActive }) => (isActive ? "text-violet-500 font-bold" : "")}>
-									Scopes
-								</NavLink>
-							</Tab>
+							<Tab>{({ selected }) => <h1 className={selected ? "text-violet-600 font-bold" : ""}>Components</h1>}</Tab>
+							<Tab>{({ selected }) => <h1 className={selected ? "text-violet-600 font-bold" : ""}>Scopes</h1>}</Tab>
 						</Tab.List>
 						<Tab.Panels>
 							<Tab.Panel>
-								{data?.scopes.length < 1 ? <Empty description="Create a scope to share your components" action={<CreateScopeButton />}/> : "Components"}
+								{data?.scopes.length < 1 ? (
+									<Empty description="Create a scope to share your components" action={<CreateScopeButton />} />
+								) : (
+									"Components"
+								)}
 							</Tab.Panel>
-							<Tab.Panel>
-								<Outlet />
-							</Tab.Panel>
+							<Tab.Panel>Scopes</Tab.Panel>
 						</Tab.Panels>
 					</Tab.Group>
 				</div>

@@ -28,7 +28,7 @@ export default function AppBar() {
 						Enterprise
 					</NavLink>
                     <button className="max-w-max py-1 px-6 bg-violet-500 text-white rounded-md">+New</button>
-                    <Link to={`/${data?.profile?.displayName}`}>
+                    <Link to={`/${data?.profile?.displayName}/dashboard`}>
                         <img className="w-10 h-10 rounded-full" src={data?.profile?.avatar}/>
                     </Link>
 				</div>
