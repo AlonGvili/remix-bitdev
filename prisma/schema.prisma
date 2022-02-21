@@ -46,22 +46,25 @@ model Profile {
 model Organization {
   id        String   @id @default(cuid())
   name      String
-  plan      Plan     @default(COMMUNITY)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  plan      Plan     @default(COMMUNITY)
   owner     User[]   @relation("UserToOrganization")
   members   User[]   @relation("OrganizationToUser")
 }
 
 model Scope {
-  id            String     @id @default(cuid())
+  id            String      @id @default(cuid())
   name          String
-  packages      Package[]
-  visibility    Visibility @default(PUBLIC)
-  owner         User?      @relation(fields: [userId], references: [id])
+  harmony       Boolean     @default(true)
+  description   String?
   userId        String?
-  collaborators User[]     @relation("UserToScope")
+  privacy       Visibility  @default(PUBLIC)
+  framework     Framework?
+  components    Component[]
+  collaborators User[]      @relation("UserToScope")
   tags          Tag[]
+  owner         User?       @relation(fields: [userId], references: [id])
 }
 
 model Component {
@@ -73,29 +76,15 @@ model Component {
   updatedAt    DateTime    @updatedAt
   tags         Tag[]
   tests        Test[]
-  package      Package?    @relation(fields: [packageId], references: [id])
   versions     Version[]
   dependencies Component[] @relation("ComponentToComponent")
   visibility   Visibility  @default(PUBLIC)
   framework    Framework   @default(NONE)
   component    Component?  @relation("ComponentToComponent", fields: [componentId], references: [id])
-  packageId    String?
   componentId  String?
   downloads    Int         @default(0)
-}
-
-model Package {
-  id         String      @id @default(cuid())
-  name       String
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  Scope      Scope?      @relation(fields: [scopeId], references: [id])
-  scopeId    String?
-  components Component[]
-  tags       Tag[]
-  versions   Version[]
-  visibility Visibility  @default(PUBLIC)
-  downloads  Int         @default(0)
+  Scope        Scope?      @relation(fields: [scopeId], references: [id])
+  scopeId      String?
 }
 
 model Test {
@@ -119,8 +108,6 @@ model Tag {
   updatedAt   DateTime   @updatedAt
   Component   Component? @relation(fields: [componentId], references: [id])
   componentId String?
-  Package     Package?   @relation(fields: [packageId], references: [id])
-  packageId   String?
   Scope       Scope?     @relation(fields: [scopeId], references: [id])
   scopeId     String?
 }
@@ -133,8 +120,6 @@ model Version {
   createdAt   DateTime   @default(now())
   Component   Component? @relation(fields: [componentId], references: [id])
   componentId String?
-  Package     Package?   @relation(fields: [packageId], references: [id])
-  packageId   String?
 }
 
 enum Visibility {
