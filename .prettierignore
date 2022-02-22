@@ -1,0 +1,4 @@
+*.css
+/build/
+/public/
+/server/

@@ -1,10 +1,10 @@
 import { renderToString } from "react-dom/server";
 import { RemixServer } from "remix";
 import type { EntryContext } from "remix";
-import {config} from 'dotenv'
+import { config } from "dotenv";
 
-if(process.env.NODE_ENV !== 'production'){
-  config() // Load the environment variables
+if (process.env.NODE_ENV !== "production") {
+  config(); // Load the environment variables
 }
 
 export default function handleRequest(
@@ -21,6 +21,6 @@ export default function handleRequest(
 
   return new Response("<!DOCTYPE html>" + markup, {
     status: responseStatusCode,
-    headers: responseHeaders
+    headers: responseHeaders,
   });
 }

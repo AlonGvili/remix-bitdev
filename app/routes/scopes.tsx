@@ -1,3 +1,3 @@
-export default function Scopes(){
-    return <h1>scopes</h1>
+export default function Scopes() {
+  return <h1>scopes</h1>;
 }
