@@ -6,7 +6,6 @@ This demo not 100% functional beacuse i don't know the underline tech bit.dev us
 
 so some things are working some aren't.
 
-also this clone is only for the Front UI so no backend stuff, well just simple things I didn't want this clone to be complex, maybe i will implement all the Remix actions and loaders for the routes but for now most of the routes have loaders and not actions.
 
 ## The TechStack
 
