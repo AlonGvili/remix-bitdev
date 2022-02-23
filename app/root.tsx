@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { LoaderFunction, MetaFunction, redirect } from "remix";
+import {
+  json,
+  LoaderFunction,
+  MetaFunction,
+  redirect,
+  useLoaderData,
+} from "remix";
 import {
   Links,
   LiveReload,
@@ -10,58 +16,37 @@ import {
 } from "remix";
 import type { Socket } from "socket.io-client";
 import io from "socket.io-client";
+import { getScopes } from "./actions";
+import CommandPalette from "./componetns/misc/comamnd_palette";
 import AppBar from "./componetns/navigation/appbar";
 import SideBar from "./componetns/navigation/sidebar";
 import { SocketProvider } from "./context";
 import { authenticator } from "./services/auth.server";
 import styles from "./tailwind.css";
+import { getUser } from "~/actions";
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
 }
 
-export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+export const meta: MetaFunction = ({ data }) => {
+  return { title: data?.profile?.displayName };
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
   let user = await authenticator.isAuthenticated(request);
   if (user && !(user instanceof Error)) {
-    let userData = await db?.user.findFirst({
+    let scopes = await getScopes({});
+    let userData = await getUser({
       where: { id: user?.id! },
-      include: {
-        profile: true,
-        scopes: true,
-        contributions: true,
-        organizationsAdmin: true,
-        organizations: true,
-        followers: true,
-        following: true,
-      },
     });
-    return userData; // redirect to user's profile
+    return json({ data: userData, scopes }); // redirect to user's profile
   }
   return null;
 };
 
 export default function App() {
-  // const [socket, setSocket] = useState<Socket>();
-
-  // useEffect(() => {
-  // 	const socket = io();
-  // 	setSocket(socket);
-  // 	return () => {
-  // 		socket.close();
-  // 	};
-  // }, []);
-
-  // useEffect(() => {
-  // 	if (!socket) return;
-  // 	socket.on("confirmation", (data) => {
-  // 		console.log(data);
-  // 	});
-  // }, [socket]);
-
+  let loaderData = useLoaderData();
   return (
     <html lang="en">
       <head>
@@ -71,13 +56,16 @@ export default function App() {
         <Links />
       </head>
       <body>
-        {/* <SocketProvider socket={socket}> */}
-        <SideBar />
-        <AppBar />
+        {loaderData?.data && (
+          <>
+            <CommandPalette scopes={loaderData?.scopes} />
+            <SideBar />
+            <AppBar />
+          </>
+        )}
         <div className="flex ml-20 mt-16 p-10">
           <Outlet />
         </div>
-        {/* </SocketProvider> */}
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}

@@ -3,7 +3,7 @@ import { Link, NavLink } from "remix";
 
 export default function SideBar() {
   return (
-    <nav className="h-screen fixed inset-0 w-20 bg-white z-50 border border-r border-gray-100">
+    <nav className="h-screen fixed inset-0 w-20 bg-white z-30 border border-r border-gray-100">
       <ul className="space-y-8 flex flex-col py-2 items-center px-2 w-full mx-auto">
         <Link to="/">
           <img

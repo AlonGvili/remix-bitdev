@@ -97,7 +97,7 @@ export let loader: LoaderFunction = async ({ request }) => {
         scopes: {
           include: {
             collaborators: true,
-            packages: true,
+            components: true,
           },
         },
       },

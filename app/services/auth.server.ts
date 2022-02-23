@@ -10,10 +10,11 @@ import {
 } from "remix-auth-google";
 import { FormStrategy } from "remix-auth-form";
 import { Authenticator, AuthorizationError } from "remix-auth";
-import { sessionStorage } from "./session.server";
+import { destroySession, getSession, sessionStorage } from "./session.server";
 import { db } from "./db.server";
 import bcrypt from "bcryptjs";
 import { Prisma } from "@prisma/client";
+import { redirect } from "remix";
 
 async function getUser({ email }: { email: string }) {
   return await db.user.findFirst({
@@ -170,3 +171,14 @@ authenticator
     }),
     "form"
   );
+
+export async function logout(request: Request) {
+  const session = await sessionStorage.getSession(
+    request.headers.get("Cookie")
+  );
+  return redirect("/login", {
+    headers: {
+      "Set-Cookie": await destroySession(session),
+    },
+  });
+}

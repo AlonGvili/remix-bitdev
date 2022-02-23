@@ -1,25 +1,15 @@
 import { Menu } from "@headlessui/react";
 import { Organization, Profile, Scope, User } from "@prisma/client";
-import { NavLink, Form, useLoaderData, Link } from "remix";
+import { NavLink, Form, useLoaderData, Link, useMatches } from "remix";
 import MenuButton from "../misc/menu_button";
-import { RiSettings3Fill } from "react-icons/ri";
+import { RiLogoutBoxFill, RiSettings3Fill } from "react-icons/ri";
 
 export default function AppBar() {
-  let data = useLoaderData<
-    | (User & {
-        profile: Profile | null;
-        scopes: Scope[];
-        organizationsAdmin: Organization[];
-        contributions: Scope[];
-        followers: User[];
-        following: User[];
-      })
-    | null
-    | undefined
-  >();
+  let loaderData = useMatches()[0]?.data;
+  let data = loaderData?.data;
   console.log(data);
   return (
-    <nav className="w-screen fixed inset-0 left-20 pr-24 h-16 bg-white z-30 border border-b border-gray-100">
+    <nav className="w-screen fixed inset-0 left-20 pr-24 h-16 bg-white z-20 border border-b border-gray-100">
       <div className="flex py-2 items-center px-2 w-full h-full justify-between">
         <Form className="w-4/12">
           <input
@@ -46,7 +36,7 @@ export default function AppBar() {
           <MenuButton
             button={
               <button className="max-w-max py-2 px-6 bg-violet-500 text-white rounded-md">
-                +New
+                + New
               </button>
             }
           >
@@ -82,7 +72,7 @@ export default function AppBar() {
                 </h3>
                 <Link
                   className="flex space-x-2 items-center hover:bg-violet-100 hover:rounded-lg w-full p-2"
-                  to={`/${data?.profile?.displayName}/dashboard`}
+                  to={`/${data?.profile?.displayName}`}
                 >
                   <img
                     className="w-6 h-6 rounded-full object-scale-down"
@@ -97,9 +87,9 @@ export default function AppBar() {
                 <h3 className="uppercase text-xs font-bold text-gray-400 pl-2">
                   Organizations
                 </h3>
-                {data?.organizationsAdmin?.map((org) => (
+                {data?.organizationsAdmin?.map((org: Organization) => (
                   <Link
-                    to={`/${org.name}`}
+                    to={`/${data?.profile?.displayName}/orgs/${org.name}`}
                     className="text-sm font-semibold hover:bg-violet-100 hover:rounded-lg w-full p-2"
                   >
                     {org.name}
@@ -114,6 +104,15 @@ export default function AppBar() {
                 <RiSettings3Fill className="text-gray-400" />
                 <span className="text-sm font-semibold ">Settings</span>
               </Link>
+              <form action="/logout" method="post">
+                <button
+                  type="submit"
+                  className="flex items-center space-x-2 hover:bg-violet-100 hover:rounded-lg w-full p-2"
+                >
+                  <RiLogoutBoxFill className="text-gray-400" />
+                  <span className="text-sm font-semibold ">Logout</span>
+                </button>
+              </form>
             </div>
           </MenuButton>
         </div>

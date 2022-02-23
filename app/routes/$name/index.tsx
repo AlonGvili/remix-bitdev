@@ -1,14 +1,6 @@
 import { Tab } from "@headlessui/react";
-import { Prisma, Scope } from "@prisma/client";
-import { RiFolderFill, RiSettings3Fill } from "react-icons/ri";
-import {
-  Link,
-  LoaderFunction,
-  NavLink,
-  Outlet,
-  useLoaderData,
-  useLocation,
-} from "remix";
+import { RiSettings3Fill } from "react-icons/ri";
+import { Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import ScopeCard from "~/componetns/cards/scope_card";
 import CreateScopeButton from "~/componetns/misc/create_scope_button";
 import Empty from "~/componetns/misc/empty";
@@ -16,29 +8,27 @@ import AppBar from "~/componetns/navigation/appbar";
 import SideBar from "~/componetns/navigation/sidebar";
 import UserInfo from "~/componetns/user/info";
 import { authenticator } from "~/services/auth.server";
-import { getUser } from "~/actions";
+import { GetUser, getUser } from "~/actions";
 
-let getData = async ({ user: { id } }: { user: { id: string } }) => {
-  return await getUser({
-    where: { id: id! },
-  });
+export const meta: MetaFunction = ({ data }) => {
+  return { title: `${data?.profile?.displayName.toLowerCase()} on bit.dev` };
 };
 
-type GetData = Prisma.PromiseReturnType<typeof getData>;
 export let loader: LoaderFunction = async ({ request }) => {
   let user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
   if (user && !(user instanceof Error)) {
-    let userData = getData({ user });
-    return userData; // redirect to user's profile
+    let userData = await getUser({
+      where: { id: user.id! },
+    });
+    return userData;
   }
   return null;
 };
 
 export default function ProfileView() {
-  let data = useLoaderData<GetData>();
-  let location = useLocation();
+  let data = useLoaderData<GetUser>();
   return (
     <>
       <AppBar />
@@ -74,7 +64,7 @@ export default function ProfileView() {
                 Upgrade
               </button>
             </Link>
-            <Link to="/edit">
+            <Link to="edit">
               <button className="py-1 px-4 border rounded-md">Edit</button>
             </Link>
             <Link to="/settings" className="text-gray-600 font-semibold">
@@ -120,17 +110,10 @@ export default function ProfileView() {
                 <div className="grid grid-cols-6 gap-8 mt-8">
                   {data?.scopes.length! > 0 ? (
                     data?.scopes?.map((scope) => (
-                      <Link to={`/${data?.profile?.displayName}/${scope.id}`}>
-                        <div className="flex flex-col items-start">
-                          <RiFolderFill className="text-[12rem] text-violet-600" />
-                          <h1 className="text-gray-600 font-bold text-lg ml-4">
-                            {scope?.name}
-                          </h1>
-                          <h3 className="text-gray-400 font-bold text-sm ml-4 text-ellipsis">
-                            {scope?.description}
-                          </h3>
-                        </div>
-                      </Link>
+                      <ScopeCard
+                        to={`/${data?.profile?.displayName}/scopes/${scope.id}`}
+                        scope={scope}
+                      />
                     ))
                   ) : (
                     <Empty

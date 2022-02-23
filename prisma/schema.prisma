@@ -45,26 +45,30 @@ model Profile {
 
 model Organization {
   id        String   @id @default(cuid())
-  name      String
+  name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  avatar    String?
   plan      Plan     @default(COMMUNITY)
   owner     User[]   @relation("UserToOrganization")
   members   User[]   @relation("OrganizationToUser")
+  scopes    Scope[]  @relation("OrganizationToScope")
 }
 
 model Scope {
-  id            String      @id @default(cuid())
-  name          String
-  harmony       Boolean     @default(true)
-  description   String?
-  userId        String?
-  privacy       Visibility  @default(PUBLIC)
-  framework     Framework?
-  components    Component[]
-  collaborators User[]      @relation("UserToScope")
-  tags          Tag[]
-  owner         User?       @relation(fields: [userId], references: [id])
+  id             String        @id @default(cuid())
+  name           String
+  harmony        Boolean       @default(true)
+  description    String?
+  userId         String?
+  privacy        Visibility    @default(PUBLIC)
+  framework      Framework?
+  components     Component[]
+  collaborators  User[]        @relation("UserToScope")
+  tags           Tag[]
+  owner          User?         @relation(fields: [userId], references: [id])
+  Organization   Organization? @relation("OrganizationToScope", fields: [organizationId], references: [id])
+  organizationId String?
 }
 
 model Component {
@@ -85,6 +89,7 @@ model Component {
   downloads    Int         @default(0)
   Scope        Scope?      @relation(fields: [scopeId], references: [id])
   scopeId      String?
+  files        File[]
 }
 
 model Test {
@@ -118,6 +123,18 @@ model Version {
   description String?
   number      String
   createdAt   DateTime   @default(now())
+  Component   Component? @relation(fields: [componentId], references: [id])
+  componentId String?
+}
+
+model File {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  content     String
+  size        Int
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   Component   Component? @relation(fields: [componentId], references: [id])
   componentId String?
 }

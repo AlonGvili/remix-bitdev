@@ -4,6 +4,7 @@ import {
   json,
   Link,
   LoaderFunction,
+  MetaFunction,
   useLoaderData,
 } from "remix";
 import { authenticator } from "~/services/auth.server";
@@ -12,6 +13,10 @@ import { sessionStorage } from "~/services/session.server";
 
 type LoaderData = {
   error: { message: string } | null;
+};
+
+export const meta: MetaFunction = () => {
+  return { title: "Login to your account" };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
