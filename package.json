@@ -5,12 +5,13 @@
   "license": "",
   "scripts": {
     "build": "remix build",
-    "dev": "concurrently \"npm run dev:css\" \"remix watch\"",
+    "dev": "concurrently \"npm run dev:css\" \"remix watch\" \"npm run start:dev\"",
     "postinstall": "remix setup node",
     "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "start:dev": "cross-env NODE_ENV=development node server/index.js",
-    "prepare": "husky install"
+    "prepare:husky": "husky install",
+    "prepare": "npx prisma db push"
   },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
