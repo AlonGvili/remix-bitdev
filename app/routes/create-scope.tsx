@@ -38,7 +38,7 @@ export let action: ActionFunction = async ({ request }) => {
       },
     },
   });
-  return redirect(`/${newScope.owner?.profile?.displayName}/scopes`);
+  return redirect(`/${newScope.owner?.profile?.displayName}`);
 };
 
 export let loader: LoaderFunction = async ({ request }) => {

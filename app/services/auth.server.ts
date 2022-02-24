@@ -80,7 +80,6 @@ export async function loginGithub({
 
 export async function loginGoogle({
   accessToken,
-  refreshToken,
   extraParams,
   profile,
 }: {
