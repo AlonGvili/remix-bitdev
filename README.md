@@ -46,7 +46,7 @@ install dependencies
 
     npm install
 
-prepare the database and seed some demo accounts and entries
+prepare the database
 
     npm run prepare
 
