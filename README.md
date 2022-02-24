@@ -6,7 +6,6 @@ This demo not 100% functional beacuse i don't know the underline tech bit.dev us
 
 so some things are working some aren't.
 
-
 ## The TechStack
 
 Remix as framework
@@ -19,4 +18,42 @@ Express as backend server
 
 Tailwindcss as css framework
 
-### This is still work in progress, so don't panic if something breaks...
+## Using this Remix app
+
+to use this app you will need to configure a couple of things.
+
+#### First rename the file from `.env.examples` to `.env`
+
+--
+
+#### This clone uses `Remix-Auth` for the authentication, to be more specific it uses the `remix auth google` and `remix auth github` to enable users to login using there Github or Google account, so you will need to create `0Auth app ` for Github and `Google app` for google.
+
+--
+
+#### Third you will need `Postgres database` locally or in the cloud some where for this app to work, the app uses `Prisma` as ORM so when the app start it looking for database to connect.
+
+--
+
+#### Last thing to configure is to create a `cloudinary` account this is for hosting users avatar images, by default when a user connect using thir github or google account thire avatar image will be store in the database as url, but if you want to enable the user to change the avatar you will need to create `cloudinary` account
+
+--
+
+### after you finish the above steps open the .env file and put the info in.
+
+### Next Steps
+
+install dependencies
+
+    npm install
+
+prepare the database and seed some demo accounts and entries
+
+    npm run prepare
+
+start the development environment
+
+    npm run dev
+
+open you browser at `http://localhost:3000` you should see the login page.
+
+## This is still work in progress, so don't panic if something breaks...
