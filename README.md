@@ -26,15 +26,15 @@ to use this app you will need to configure a couple of things.
 
 --
 
-### This clone uses Remix-Auth for the authentication, to be more specific it uses the remix auth google and remix auth GitHub to enable users to login using their Github or Google account, so you will need to create a 0Auth app for Github and Google app for google.
+#### This clone uses `Remix-Auth` for the authentication, to be more specific it uses the `remix auth google` and `remix auth GitHub` to enable users to login using their Github or Google account, so you will need to create a `0Auth app` for Github and `Google app` for google.
 
 --
 
-### Third you will need Postgres database locally or in the cloud somewhere for this app to work, the app uses Prisma as ORM so when the app starts it looks for a database to connect.
+#### Third you will need `Postgres` database locally or in the cloud somewhere for this app to work, the app uses `Prisma` as ORM so when the app starts it looks for a database to connect.
 
 --
 
-### The last thing to configure is to create a Cloudinary account this is for hosting user's avatar images, by default when a user connects using their GitHub or google account their avatar image will be stored in the database as URL, but if you want to enable the user to change the avatar you will need to create Cloudinary account
+#### The last thing to configure is to create a `Cloudinary` account this is for hosting user's avatar images, by default when a user connects using their GitHub or google account their avatar image will be stored in the database as URL, but if you want to enable the user to change the avatar you will need to create `Cloudinary` account
 
 --
 
