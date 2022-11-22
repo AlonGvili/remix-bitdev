@@ -36,7 +36,7 @@
     "remix-auth-github": "^1.0.0",
     "remix-auth-google": "^1.1.0",
     "remix-utils": "^2.5.0",
-    "socket.io": "^4.4.1",
+    "socket.io": "^4.5.3",
     "socket.io-client": "^4.4.1",
     "tailwindcss": "^3.0.23"
   },
